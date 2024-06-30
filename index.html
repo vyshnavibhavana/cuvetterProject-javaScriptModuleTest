@@ -1,0 +1,858 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width ,initial-scale=1.0">
+    <title>Rock-Scissors-Paper Project</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .modal-dialog {
+            width:100%;
+            margin: 0;
+            /* background-; */
+            
+        }
+
+        .modal-content {
+            height: 100vh;
+            border-radius: 0;
+            background-color: white;
+        }
+
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                filter: drop-shadow(#297322 1.5rem 1.5rem 3rem);
+            }
+
+            50% {
+                filter: none;
+            }
+        }
+
+        .highlight-green {
+            filter: drop-shadow(#297322 1.5rem 1.5rem 3rem);
+            animation: blink 1s infinite;
+        }
+
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: 0;
+        }
+
+        .con,
+        .computer {
+            position: relative;
+        }
+
+        body {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #8CC461;
+            font-family: system-ui;
+        }
+
+        .score-con {
+            max-width: 100%;
+            width: 900px;
+            height: 142px;
+            border: 2px solid #FFFFFF;
+            border-radius: 13px 13px 13px 13px;
+            margin-top: 7px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 18px;
+            color: #FFFFFF;
+
+        }
+
+        .logo {
+            font-family: "Roboto", sans-serif;
+            font-size: 40px;
+            font-weight: 500;
+            line-height: 46.88px;
+            letter-spacing: 0.2em;
+            text-align: left;
+        }
+
+        .score1 {
+            display: grid;
+            width: 139px;
+            height: 128px;
+            top: 77px;
+            margin-left: 290px;
+            border-radius: 9px 9px 9px 9px;
+            background-color: #FFFFFF;
+            font-family: "Roboto", sans-serif;
+            font-size: 17px;
+            font-weight: 600;
+            line-height: 32px;
+            letter-spacing: 0.1em;
+            text-align: center;
+            color: #656565;
+        }
+
+        .score2 {
+            display: grid;
+            width: 139px;
+            height: 128px;
+            top: 77px;
+            margin: 8px;
+            border-radius: 9px 9px 9px 9px;
+            background-color: #FFFFFF;
+            font-family: "Roboto", sans-serif;
+            font-size: 17px;
+            font-weight: 700;
+            line-height: 32px;
+            letter-spacing: 0.1em;
+            text-align: center;
+            color: #656565;
+        }
+
+        #comp-score1,
+        #comp-score2 {
+            font-family: Roboto;
+            font-size: 47px;
+            font-weight: 700;
+            line-height: 50px;
+            text-align: center;
+            color: #252525;
+        }
+
+        .game-con {
+            width: 100%;
+            min-height: 69vh;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .info {
+            width: 1100px;
+            min-height: 10vh;
+            font-size: 17px;
+            margin: 8rem 0 0 0;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            color: #FFFFFF;
+
+        }
+
+        .option {
+            width: 1100px;
+            min-height: 20vh;
+            display: grid;
+            place-content: center;
+            position: relative;
+        }
+
+        .con {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            padding: 18px;
+            cursor: pointer;
+
+        }
+
+        .computer {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            padding: 18px;
+            display: none;
+
+        }
+
+        .rock-con {
+
+            left: 16rem;
+            top: -24%;
+        }
+
+        .sci-con {
+            right: 19rem;
+            top: -24%;
+        }
+
+        .paper-con {
+            left: 27rem;
+            top: 56%;
+        }
+
+        .user,
+        .machine {
+            font-family: "Roboto", sans-serif;
+            font-size: 17px;
+            font-weight: 600;
+            line-height: 19.92px;
+            letter-spacing: 0.1em;
+            text-align: center;
+
+            opacity: 0;
+            color: white;
+        }
+
+        .btn-div {
+            position: fixed;
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+            padding: 6rem 4rem 1rem 0;
+            margin-top: 580px;
+
+        }
+
+        .nextButton {
+
+            padding: 8px 20px;
+            border: 2px solid #FFFFFF;
+            outline: none;
+            background: transparent;
+            border-radius: 10px 10px 10px 10px;
+            font-family: "Roboto", sans-serif;
+            font-size: 21px;
+            font-weight: 600;
+            line-height: 27px;
+            letter-spacing: 0.1em;
+            text-align: center;
+            color: #FFFFFF;
+            cursor: pointer;
+            margin-bottom: 3px;
+            margin-top: 101%;
+            left: 850%;
+            position: relative;
+            height: 45px;
+            width: 95px;
+            display: none;
+
+        }
+
+
+        .next {
+            position: fixed;
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+            padding: 6rem 4rem 1rem 0;
+            margin-top: 580px;
+
+
+        }
+
+        .next1 {
+            padding: 8px 20px;
+            border: 2px solid #FFFFFF;
+            outline: none;
+            background: transparent;
+            border-radius: 10px 10px 10px 10px;
+            font-family: "Roboto", sans-serif;
+            font-size: 21px;
+            font-weight: 600;
+            line-height: 27px;
+            letter-spacing: 0.1em;
+            text-align: center;
+            color: #FFFFFF;
+            /* cursor: pointer; */
+            display: none;
+            margin-left: -70%;
+
+        }
+
+
+        .btn-rule {
+            padding: 8px 20px;
+            border: 2px solid #FFFFFF;
+            outline: none;
+            background: transparent;
+            border-radius: 10px 10px 10px 10px;
+            font-family: "Roboto", sans-serif;
+            font-size: 21px;
+            font-weight: 600;
+            line-height: 27px;
+            letter-spacing: 0.1em;
+            text-align: center;
+            color: #FFFFFF;
+            cursor: pointer;
+            margin-bottom: 3px
+        }
+
+        .rule-model {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            place-content: end;
+            margin-top: 120px;
+            margin-left: -60px;
+            display: none;
+
+        }
+
+        .rule-model {
+            position: absolute;
+            content: "";
+            opacity: 0.6;
+            width: 100%;
+            height: 100%;
+        }
+
+        .rule-image {
+            margin-top: 80px;
+            transform: translateY(-200%);
+            transition: all 0.4s ease;
+        }
+
+        .close {
+            background: transparent;
+            outline: none;
+            border: none;
+            cursor: pointer;
+            margin-left: 360px;
+
+        }
+
+        #monu3 {
+            position: fixed;
+            align-items: end;
+            margin-top: -15px;
+        }
+
+        #monu4 {
+            position: fixed;
+            margin-top: -2px;
+            margin-left: 18px;
+
+        }
+
+        .win-model {
+            position: fixed;
+            width: 100%;
+            height: 100vh;
+            display: grid;
+            place-content: center;
+            top: 180px;
+            display: none;
+        }
+
+        .win-model::before {
+            position: absolute;
+            content: "";
+            opacity: 0.6;
+            width: 100%;
+            height: 100%;
+        }
+
+        .winner {
+            z-index: 1;
+            font-family: "Roboto", sans-serif;
+            font-size: 36px;
+            font-weight: 700;
+            line-height: 25.7px;
+            letter-spacing: 0.1em;
+            text-align: center;
+            color: #FFFFFF;
+            margin-top: -80px;
+        }
+
+        #monu5 {
+            font-family: "Roboto", sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            line-height: 10px;
+            letter-spacing: 0.1em;
+            text-align: center;
+            color: #FFFFFF;
+            margin-top: -60px;
+        }
+
+        .play {
+            z-index: 1;
+            width: 155px;
+            height: 44px;
+            margin-top: -46px;
+            margin-left: 8px;
+            border-radius: 9px 9px 9px 9px;
+            font-family: "Roboto", sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            line-height: 17.58px;
+            letter-spacing: 0.1em;
+            text-align: center;
+            cursor: pointer;
+            border: none;
+            color: #6B6B6B;
+            background-color: #FFFFFF;
+        }
+
+        .loss-model {
+            position: fixed;
+            width: 100%;
+            height: 100vh;
+            display: grid;
+            place-content: center;
+            top: 180px;
+            display: none;
+
+        }
+
+        .loss-model::before {
+            position: absolute;
+            content: "";
+            opacity: 0.6;
+            width: 100%;
+            height: 100%;
+        }
+
+        .looser {
+            z-index: 1;
+            font-family: "Roboto", sans-serif;
+            font-size: 36px;
+            font-weight: 700;
+            line-height: 25.7px;
+            letter-spacing: 0.1em;
+            text-align: center;
+            color: #FFFFFF;
+            margin-top: -80px;
+            margin-left: 3px;
+
+        }
+
+        #monu6 {
+            font-family: "Roboto", sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            line-height: 10px;
+            letter-spacing: 0.1em;
+            text-align: center;
+            color: #FFFFFF;
+            margin-top: -60px;
+        }
+
+        .play2 {
+            z-index: 1;
+            width: 172px;
+            height: 44px;
+            margin-top: -46px;
+            margin-left: 13px;
+            border-radius: 9px 9px 9px 9px;
+            font-family: "Roboto", sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            line-height: 17.58px;
+            letter-spacing: 0.1em;
+            text-align: center;
+            cursor: pointer;
+            border: none;
+            color: #6B6B6B;
+            background-color: #FFFFFF;
+        }
+
+        .tie-model {
+            position: fixed;
+            width: 100%;
+            height: 100vh;
+            display: grid;
+            place-content: center;
+            top: 180px;
+            display: none;
+
+        }
+
+        .tie-model::before {
+            position: absolute;
+            content: "";
+            opacity: 0.6;
+            width: 100%;
+            height: 100%;
+        }
+
+        .tie {
+            z-index: 1;
+            font-family: "Roboto", sans-serif;
+            font-size: 36px;
+            font-weight: 700;
+            line-height: 25.7px;
+            letter-spacing: 0.1em;
+            text-align: center;
+            color: #FFFFFF;
+            margin-top: -80px;
+            margin-left: 8px;
+
+        }
+
+        .play3 {
+            z-index: 1;
+            width: 142px;
+            height: 44px;
+            margin-top: -32px;
+            margin-left: 4px;
+            border-radius: 9px 9px 9px 9px;
+            font-family: "Roboto", sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            line-height: 17.58px;
+            letter-spacing: 0.1em;
+            text-align: center;
+            cursor: pointer;
+            border: none;
+            color: #6B6B6B;
+            background-color: #FFFFFF;
+        }
+
+        .show {
+            left: 10rem;
+            top: -10%;
+            justify-content: space-between;
+        }
+
+        .right {
+            left: 44.5rem;
+            top: -10%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="score-con">
+        <div class="logo">
+            <p>ROCK</p>
+            <p>PAPER</p>
+            <p>SCISSORS</p>
+        </div>
+        <div class="score1">
+            <p>COMPUTER<br />SCORE</p>
+            <span id="comp-score1">0</span>
+        </div>
+        <div class="score2">
+            <p>YOUR<br />SCORE</p>
+            <span id="comp-score2">0</span>
+        </div>
+    </div>
+    <div class="game-con">
+        <div class="info">
+            <p class="user">YOU PICKED</p>
+            <p class="machine">PC PICKED</p>
+        </div>
+        <div class="option">
+            <img src="./images/bg-triangle.svg" class="triangle" width="480px" height="360px">
+
+            <div class="rock-con con">
+                <div class="item">
+                    <img src="./images/Group 4.png" width="200px">
+                </div>
+            </div>
+            <div class="sci-con con">
+                <div class="item">
+                    <img src="./images/Group 1.png" width="200px">
+                </div>
+            </div>
+            <div class="paper-con con">
+                <div class="item">
+                    <img src="./images/Group 2.png" width="200px">
+                </div>
+            </div>
+            <div class="rock-con computer">
+                <div class="item">
+                    <img src="./images/Group 4.png" width="200px">
+                </div>
+            </div>
+            <div class="sci-con computer">
+                <div class="item">
+                    <img src="./images/Group 1.png" width="200px">
+                </div>
+            </div>
+            <div class="paper-con computer">
+                <div class="item">
+                    <img src="./images/Group 2.png" width="200px">
+                </div>
+            </div>
+        </div>
+        <div style="margin-top: 171px;">
+            <!-- <button type="button" class="nextButton" id="nextEnable" >Next</button> -->
+        </div>
+        <div class="btn-div">
+            <button class="btn-rule">RULES</button>
+        </div>
+        <div class="rule-model">
+            <div class="rule-image">
+                <div>
+                    <button class="close">
+                        <img src="./images/Ellipse 6.svg" id="monu3">
+                        <img src="./images/X.svg" id="monu4">
+                    </button>
+                </div>
+
+                <img src="./images/Frame 4.png" width="400px" height="450px">
+            </div>
+        </div>
+        <div class="win-model">
+            <h1 class="winner">YOU WIN</h1><br />
+            <p id="monu5">AGAINST PC</p> <br>
+
+            <button class="play">PLAY AGAIN</button>
+            <!-- <button class="play" id="nextEnable" style="margin-top: 10%;" data-toggle="modal"
+            data-target="#fullscreenModal">Next</button> -->
+            <button class="play" id="nextEnable" style="margin-top: 10%;" onclick="location.href='./congr.html'">Next</button>
+            <!-- <div class="modal" id="fullscreenModal">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+            
+
+                        <div class="modal-header">
+                            <h4 class="modal-title">Fullscreen Modal</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+            
+                       
+                        <div class="modal-body">
+                            This is a fullscreen modal!
+                        </div>
+            
+                        
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        </div>
+            
+                    </div>
+                </div>
+            </div> -->
+        </div>
+        <div class="loss-model">
+            <h1 class="looser">YOU LOST</h1><br />
+            <p id="monu6">AGAINST PC</p> <br>
+
+            <button class="play2">PLAY AGAIN</button>
+        </div>
+        <div class="tie-model">
+            <h1 class="tie">TIE UP</h1><br>
+            <button class="play3">REPLAY</button>
+        </div>
+    </div>
+    <!-- <script>
+        let con=document.querySelectorAll(".con");
+let computer=document.querySelectorAll(".computer");
+let user=document.querySelector(".user");
+let machine=document.querySelector(".machine");
+let winmodel=document.querySelector(".win-model");
+let winner=document.querySelector(".winner");
+let loosemodel=document.querySelector(".loss-model");
+let looser=document.querySelector(".looser");
+let tiemodel=document.querySelector(".tie-model");
+let tie=document.querySelector(".tie");
+console.log(computer);
+let play1=document.querySelector(".play");
+let play2=document.querySelector(".play2");
+let play3=document.querySelector(".play3");
+let random=Math.floor(Math.random()*3);
+let triangle=document.querySelector(".triangle");
+let score1=JSON.parse(localStorage.getItem("sc1"));
+let scoreElem=document.getElementById("comp-score1");
+let score2=JSON.parse(localStorage.getItem("sc2"));
+let score2Elem=document.getElementById("comp-score2");
+let rulebtn=document.querySelector(".btn-rule");
+let rulemodel=document.querySelector(".rule-model");
+let ruleimage=document.querySelector(".rule-image");
+let nextEnable = document.getElementById("nextEnable")
+
+if(score2){
+    score2Elem.innerText=score2;
+}
+let countt=0;
+if(score1){
+     scoreElem.innerText=score1;
+}
+let count=0;
+
+con.forEach((element,index) => {
+    element.addEventListener("click",()=>{
+        user.style.opacity="1";
+        triangle.style.display="none";
+        con.forEach(item => {
+           item.style.display="none";
+        });
+        element.style.display="block";
+        element.classList.add("show")
+        setTimeout(()=>{
+        machine.style.opacity="1";
+          setTimeout(()=>{
+           computer[random].style.display="block";
+           computer[random].classList.add("right");
+          },500);
+          setTimeout(()=>{
+            if(index==random){
+                tiemodel.style.display="grid";
+                tie.innerText="TIE UP"; 
+                nextEnable.style.display = "none"
+               
+            }
+            else if(index===0 && random==1 || index==1 && random==2|| index==2 && random==0){
+             winmodel.style.display="grid";
+             winner.innerText="YOU WIN"; 
+              nextEnable.style.display = "block"
+             countt=score2;
+             countt++;
+             score2Elem.innerText=countt;
+             localStorage.setItem("sc2",JSON.stringify(countt));
+             
+            }
+            else{
+             loosemodel.style.display="grid";
+             looser.innerText="YOU LOST";
+              nextEnable.style.display = "none"
+             count=score1;
+             count++;
+             scoreElem.innerText=count;
+             localStorage.setItem("sc1",JSON.stringify(count));
+            }
+          },1000);
+        },500);
+    })
+    
+});
+play1.addEventListener("click",()=>{
+    window.location.reload();
+})
+play2.addEventListener("click",()=>{
+    window.location.reload();
+})
+play3.addEventListener("click",()=>{
+    window.location.reload();
+})
+rulebtn.addEventListener("click",()=>{
+    rulemodel.style.display="flex";
+    setTimeout(()=>{
+     ruleimage.style.transform="translateY(0)";
+    },400);
+
+})
+let close=document.querySelector(".close");
+close.addEventListener("click",()=>{
+    ruleimage.style.transform="translateY(-200%)"; 
+    setTimeout(()=>{
+        rulemodel.style.display="none";
+    },400);
+
+})
+
+    </script> -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        let con = document.querySelectorAll(".con");
+        let computer = document.querySelectorAll(".computer");
+        let user = document.querySelector(".user");
+        let machine = document.querySelector(".machine");
+        let winmodel = document.querySelector(".win-model");
+        let winner = document.querySelector(".winner");
+        let loosemodel = document.querySelector(".loss-model");
+        let looser = document.querySelector(".looser");
+        let tiemodel = document.querySelector(".tie-model");
+        let tie = document.querySelector(".tie");
+        console.log(computer);
+        let play1 = document.querySelector(".play");
+        let play2 = document.querySelector(".play2");
+        let play3 = document.querySelector(".play3");
+        let random = Math.floor(Math.random() * 3);
+        let triangle = document.querySelector(".triangle");
+        let score1 = JSON.parse(localStorage.getItem("sc1"));
+        let scoreElem = document.getElementById("comp-score1");
+        let score2 = JSON.parse(localStorage.getItem("sc2"));
+        let score2Elem = document.getElementById("comp-score2");
+        let rulebtn = document.querySelector(".btn-rule");
+        let rulemodel = document.querySelector(".rule-model");
+        let ruleimage = document.querySelector(".rule-image");
+        let nextEnable = document.getElementById("nextEnable");
+
+        if (score2) {
+            score2Elem.innerText = score2;
+        }
+        let countt = 0;
+        if (score1) {
+            scoreElem.innerText = score1;
+        }
+        let count = 0;
+
+        con.forEach((element, index) => {
+            element.addEventListener("click", () => {
+                user.style.opacity = "1";
+                triangle.style.display = "none";
+                con.forEach(item => {
+                    item.style.display = "none";
+                });
+                element.style.display = "block";
+                element.classList.add("show");
+                setTimeout(() => {
+                    machine.style.opacity = "1";
+                    setTimeout(() => {
+                        computer[random].style.display = "block";
+                        computer[random].classList.add("right");
+                    }, 500);
+                    setTimeout(() => {
+                        if (index == random) {
+                            tiemodel.style.display = "grid";
+                            tie.innerText = "TIE UP";
+                            nextEnable.style.display = "none";
+                        } else if (index === 0 && random == 1 || index == 1 && random == 2 || index == 2 && random == 0) {
+                            winmodel.style.display = "grid";
+                            winner.innerText = "YOU WIN";
+                            nextEnable.style.display = "block";
+                            countt = score2;
+                            countt++;
+                            score2Elem.innerText = countt;
+                            localStorage.setItem("sc2", JSON.stringify(countt));
+                            element.classList.add("highlight-green"); // Highlight user's choice
+                        } else {
+                            loosemodel.style.display = "grid";
+                            looser.innerText = "YOU LOST";
+                            nextEnable.style.display = "none";
+                            count = score1;
+                            count++;
+                            scoreElem.innerText = count;
+                            localStorage.setItem("sc1", JSON.stringify(count));
+                            computer[random].classList.add("highlight-green"); // Highlight computer's choice
+                        }
+                    }, 1000);
+                }, 500);
+            });
+        });
+
+        play1.addEventListener("click", () => {
+            window.location.reload();
+        });
+        play2.addEventListener("click", () => {
+            window.location.reload();
+        });
+        play3.addEventListener("click", () => {
+            window.location.reload();
+        });
+        rulebtn.addEventListener("click", () => {
+            rulemodel.style.display = "flex";
+            setTimeout(() => {
+                ruleimage.style.transform = "translateY(0)";
+            }, 400);
+        });
+        let close = document.querySelector(".close");
+        close.addEventListener("click", () => {
+            ruleimage.style.transform = "translateY(-200%)";
+            setTimeout(() => {
+                rulemodel.style.display = "none";
+            }, 400);
+        });
+
+    </script>
+
+
+</body>
+
+</html>
